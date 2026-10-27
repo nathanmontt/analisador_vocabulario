@@ -12,14 +12,31 @@ while True:
     match options:
         case "1":   #adição do texto
             analized_text = input("Digite um texto para analisar\n: ")
-
-            # if analized_text.lower() in ("q", "sair", "cancelar"):
-            #     break
+            while not analized_text or len(analized_text) <= 2:
+                analized_text = input("Local vazio ou menor do que o necessário. Digite um texto válido\n: ")
 
         case "2":   #analisar o texto
-            result = re.split(r"[,;\s]+", analized_text)
-            print(result)  # ['apple', 'banana', 'orange', 'grape']
-            continue
+            # list_result = re.split(r"([^\w\s]+|\s+)", analized_text)
+            # print(list_result)  # ['apple', 'banana', 'orange', 'grape']
+            # continue
+
+            # list_result = re.split(r"([^\w\s]+|\s+)", analized_text)
+
+            # list_result = [
+            #     "" if element.isspace() else element
+            #     for element in list_result
+            # ]
+
+            # print(list_result)
+
+            list_result = re.findall(r"\w+|[^\w\s]+|\s", analized_text)
+
+            list_result = [
+                "" if element.isspace() else element
+                for element in list_result
+            ]
+
+            print(list_result)
         
         case "3": # estatisticas básicas
             # if not original_sorteador_nome_set:
