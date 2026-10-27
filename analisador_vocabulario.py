@@ -1,5 +1,5 @@
 import re
-
+import collections
 # analized_text = input("Digite um texto para analisar: ")
 # # Split by comma, semicolon, or space
 # result = re.split(r"[,;\s]+", text)
@@ -29,11 +29,15 @@ while True:
             if not analized_text:
                 print("Adicione um texto para receber as estatísticas")
             else:
+                # count = 0
+                # for the_total_elements in list_result:
+                #     count += 1
+                
                 # print("ESTATÍSTICAS DO SORTEIO")
-                print("EM CONSTRUÇÃO")
 
                 # quantidade de palavras
-                # print(f"Quantidade total de palavras: {}")
+                # print(f"Quantidade total de palavras: {count}")
+                print(f"Quantidade total de palavras: {len(list_result)}")
 
                 # result = len(set_copy) - len(original_sorteador_nome_set)
                 # print(f"Quantidade de participantes restantes (total - já sorteados) = {result}")
