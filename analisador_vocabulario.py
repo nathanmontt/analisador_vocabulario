@@ -16,19 +16,6 @@ while True:
                 analized_text = input("Local vazio ou menor do que o necessário. Digite um texto válido\n: ")
 
         case "2":   #analisar o texto
-            # list_result = re.split(r"([^\w\s]+|\s+)", analized_text)
-            # print(list_result)  # ['apple', 'banana', 'orange', 'grape']
-            # continue
-
-            # list_result = re.split(r"([^\w\s]+|\s+)", analized_text)
-
-            # list_result = [
-            #     "" if element.isspace() else element
-            #     for element in list_result
-            # ]
-
-            # print(list_result)
-
             list_result = re.findall(r"\w+|[^\w\s]+|\s", analized_text)
 
             list_result = [
@@ -39,11 +26,14 @@ while True:
             print(list_result)
         
         case "3": # estatisticas básicas
-            # if not original_sorteador_nome_set:
-            #     print("Adicione um texto para receber as estatísticas")
-            # else:
+            if not analized_text:
+                print("Adicione um texto para receber as estatísticas")
+            else:
                 # print("ESTATÍSTICAS DO SORTEIO")
-                # print(f"Quantidade total de participantes: {len(set_copy)}")
+                print("EM CONSTRUÇÃO")
+
+                # quantidade de palavras
+                # print(f"Quantidade total de palavras: {}")
 
                 # result = len(set_copy) - len(original_sorteador_nome_set)
                 # print(f"Quantidade de participantes restantes (total - já sorteados) = {result}")
