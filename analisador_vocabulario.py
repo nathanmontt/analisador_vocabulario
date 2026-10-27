@@ -16,7 +16,7 @@ while True:
                 analized_text = input("Local vazio ou menor do que o necessário. Digite um texto válido\n: ")
 
         case "2":   #analisar o texto
-            list_result = re.findall(r"\w+|[^\w\s]+|\s", analized_text)
+            list_result = re.findall(r"\w+|[^\w\s]|\s+", analized_text)
 
             list_result = [
                 "" if element.isspace() else element
@@ -29,24 +29,49 @@ while True:
             if not analized_text:
                 print("Adicione um texto para receber as estatísticas")
             else:
-                # count = 0
-                # for the_total_elements in list_result:
-                #     count += 1
-                
-                # print("ESTATÍSTICAS DO SORTEIO")
+                # contagem de palavras
+                words = [
+                    element.casefold()
+                    for element in list_result
+                    if element and element.isalpha()
+                ]
+                word_counter = collections.Counter(words)
+
+                # contagem de simbolos
+                symbols = [
+                    element
+                    for element in list_result
+                    if element and not element.isalnum()
+                ]
+                symbol_counter = collections.Counter(symbols)
+
+                # total de palavras
+                total_words = sum(word_counter.values())
+
+                print("ESTATÍSTICAS")
+
+                print("\nPALAVRAS MAIS FREQUENTES")
+                print(f"{'PALAVRA':<20} {'QUANTIDADE':>10}")
+                print("-" * 32)
+
+                for word, quantity in word_counter.most_common():
+                    print(f"{word:<20} {quantity:>10}")
+
+                if symbol_counter:
+                    print("\nSÍMBOLOS MAIS FREQUENTES")
+                    print(f"{'SÍMBOLO':<20} {'QUANTIDADE':>10}")
+                    print("-" * 32)
+
+                    for symbol, quantity in symbol_counter.most_common():
+                        print(f"{symbol:<20} {quantity:>10}")
+                else:
+                    print("\nNenhum símbolo encontrado")
 
                 # quantidade de palavras
-                # print(f"Quantidade total de palavras: {count}")
-                print(f"Quantidade total de palavras: {len(list_result)}")
-
-                # result = len(set_copy) - len(original_sorteador_nome_set)
-                # print(f"Quantidade de participantes restantes (total - já sorteados) = {result}")
-                # for each_participant in original_sorteador_nome_set:
-                #     print(each_participant)
-
-                # print(f"Quantidade de sorteios já feitos: {draw_cont}")
-                # print()
-            continue
+                print(f"Quantidade total de elementos: {len(list_result)}")
+                print(f"Quantidade total de palavras: {total_words}")
+            
+            print("\n")
         
         case "4":   #sair do programa
             print("Até logo!")
