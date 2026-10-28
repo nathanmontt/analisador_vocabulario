@@ -1,14 +1,78 @@
 import re
 import collections
-# analized_text = input("Digite um texto para analisar: ")
-# # Split by comma, semicolon, or space
-# result = re.split(r"[,;\s]+", text)
-# print(result)  # ['apple', 'banana', 'orange', 'grape']
+from reportlab.pdfgen           import canvas
+from reportlab.lib.pagesizes    import A4
+from reportlab.lib              import colors
+from reportlab.platypus         import Table, TableStyle
+
+def generate_statistics_pdf(list_result):
+    if not list_result:
+        print("Analise um texto antes de gerar o PDF.")
+        return
+
+    words = [
+        element.casefold()
+        for element in list_result
+        if element and element.isalpha()
+    ]
+
+    symbols = [
+        element
+        for element in list_result
+        if element and not element.isalnum()
+    ]
+
+    word_counter = collections.Counter(words)
+    symbol_counter = collections.Counter(symbols)
+
+    table_data = [
+        ["Categoria", "Elemento", "Quantidade"],
+        ["Resumo", "Total de elementos", len(list_result)],
+        ["Resumo", "Total de palavras", len(words)],
+    ]
+
+    for word, quantity in word_counter.most_common():
+        table_data.append(["Palavra", word, quantity])
+
+    for symbol, quantity in symbol_counter.most_common():
+        table_data.append(["Símbolo", symbol, quantity])
+
+    pdf = canvas.Canvas("estatisticas_texto.pdf", pagesize=A4)
+    pdf.setTitle("Estatísticas do texto")
+
+    pdf.setFontSize(18)
+    pdf.drawCentredString(300, 800, "ESTATÍSTICAS DO TEXTO")
+
+    statistics_table = Table(
+        table_data,
+        colWidths=[120, 280, 100]
+    )
+
+    statistics_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("ALIGN", (2, 1), (2, -1), "CENTER"),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ]))
+
+    table_width, table_height = statistics_table.wrapOn(pdf, 0, 0)
+    statistics_table.drawOn(pdf, 40, 740 - table_height)
+
+    pdf.save()
+    print("PDF criado: estatisticas_texto.pdf")
 
 print("ANALISADOR DE TEXTO")
 
 while True:
-    options = input("Digite:\n1 - Adicionar\n2 - Analisar o texto\n3 - Estatísticas\n4 - Sair\n: ")
+    options = input(
+        "Digite:\n"
+        "1 - Adicionar\n"
+        "2 - Analisar o texto\n"
+        "3 - Estatísticas\n"
+        "4 - Gerar PDF\n"
+        "5 - Sair\n"
+        ": "
+    )
     match options:
         case "1":   #adição do texto
             analized_text = input("Digite um texto para analisar\n: ")
@@ -74,6 +138,9 @@ while True:
             print("\n")
         
         case "4":   #sair do programa
+            generate_statistics_pdf(list_result)
+
+        case "5":   #sair do programa
             print("Até logo!")
             break
 
