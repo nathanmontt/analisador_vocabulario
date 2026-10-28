@@ -14,7 +14,7 @@ Este projeto foi construído para praticar o processamento básico de texto, uti
 
 ## 🔮 *Feats* Futuras
 
-- [ ] **Exportação em PDF:** exportar o relatório estatístico gerado para um arquivo PDF.
+- [x] **Exportação em PDF:** exportar o relatório estatístico gerado para um arquivo PDF.
 - [ ] **Detector de similaridade:** *input* de dois textos e o programa calcula quantas palavras eles têm em comum.
 
 ## ⚙️ Pré-requisitos
